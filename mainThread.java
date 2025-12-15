@@ -1,5 +1,5 @@
 
-class threadMain extends Thread{
+class thread0 extends Thread{
 
     public void run(){
         System.out.println("Current thread is: " + Thread.currentThread().getName());
@@ -10,11 +10,13 @@ class threadMain extends Thread{
 
 
 
+
+
 public class mainThread {
     public static void main(String[] args) {
         // System.out.println("Hello World!");
         // System.out.println("Current Thread: " + Thread.currentThread().getName());
-        threadMain task0 = new threadMain();
+        thread0 task0 = new thread0();
         task0.start();
         
     }
