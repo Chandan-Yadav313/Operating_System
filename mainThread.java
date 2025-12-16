@@ -99,9 +99,9 @@ public class mainThread {
          */
         // System.out.println("Time start to execute task from 1 to 100");
         // for (int i = 1; i <= 100; i++) {
-        //     mythread4 task4 = new mythread4(i);
-        //     task4.start();
-        //     Thread.sleep(1000);
+        // mythread4 task4 = new mythread4(i);
+        // task4.start();
+        // Thread.sleep(1000);
         // }
         // System.out.println("Times up");
 
@@ -115,15 +115,15 @@ public class mainThread {
 
         // System.out.println("End Countdown........");
 
-
-        /*Created threads using join metods */
-        mythread3 task3 = new mythread3();
-        task3.start();
-        task3.join();
-        for (int i = 1; i <= 100; i++) {
-            mythread4 task4 = new mythread4(i);
-            task4.start();
-            Thread.sleep(1000);
+        /* Created threads using join method */
+        // mythread3 task3 = new mythread3();
+        // task3.start();
+        // task3.join();
+        // for (int i = 1; i <= 100; i++) {
+            // System.out.println("Current thread: " + Thread.currentThread().getName());
+            // mythread4 task4 = new mythread4(i);
+            // task4.start();
+            // Thread.sleep(1000);
         }
 
     }
