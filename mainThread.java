@@ -115,6 +115,8 @@ public class mainThread {
 
         // System.out.println("End Countdown........");
 
+
+        /*Created threads using join metods */
         mythread3 task3 = new mythread3();
         task3.start();
         task3.join();
