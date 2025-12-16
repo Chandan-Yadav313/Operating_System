@@ -120,12 +120,10 @@ public class mainThread {
         // task3.start();
         // task3.join();
         // for (int i = 1; i <= 100; i++) {
-            // System.out.println("Current thread: " + Thread.currentThread().getName());
-            // mythread4 task4 = new mythread4(i);
-            // task4.start();
-            // Thread.sleep(1000);
-        }
-
+        // System.out.println("Current thread: " + Thread.currentThread().getName());
+        // mythread4 task4 = new mythread4(i);
+        // task4.start();
+        // Thread.sleep(1000);git
     }
 
 }
