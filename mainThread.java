@@ -95,21 +95,23 @@ public class mainThread {
         // task3.start();
 
         /* Creating 1 to 100 threads using for loops and contructions */
-        System.out.println("Time start to execute task from 1 to 100");
-        for (int i = 1; i <= 100; i++) {
-            mythread4 task4 = new mythread4(i);
-            task4.start();
+        // System.out.println("Time start to execute task from 1 to 100");
+        // for (int i = 1; i <= 100; i++) {
+        //     mythread4 task4 = new mythread4(i);
+        //     task4.start();
+        //     Thread.sleep(1000);
+        // }
+        // System.out.println("Times up");
+
+        System.out.println("Start CountDown.......");
+        int sec = 100;
+        while(sec > 0){
+            System.out.println("Remaining Seconds: " + sec);
             Thread.sleep(1000);
+            sec--;
         }
 
-        // int sec = 100;
-        // while(sec > 0){
-        //     System.out.println("Remaining Seconds: " + sec);
-        //     Thread.sleep(1000);
-        //     sec--;
-        // }
-
-        System.out.println("Times Ups!!");
+        System.out.println("End Countdown........");
 
     }
 
