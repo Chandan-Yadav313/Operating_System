@@ -1,4 +1,7 @@
 import java.io.InterruptedIOException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 class thread0 extends Thread {
 
@@ -123,7 +126,18 @@ public class mainThread {
         // System.out.println("Current thread: " + Thread.currentThread().getName());
         // mythread4 task4 = new mythread4(i);
         // task4.start();
-        // Thread.sleep(1000);git
+        // Thread.sleep(1000);g
+
+        /* Creating threads using threadpool method */
+        System.out.println("Time start to execute task from 1 to 100");
+        // ExecutorService manager = Executors.newFixedThreadPool(100);
+        ExecutorService manager = Executors.newCachedThreadPool();
+        for (int i = 1; i <= 1000; i++) {
+            mythread4 task4 = new mythread4(i);
+            manager.submit(task4);
+        }
+        manager.shutdown();
+        System.out.println("Times up");
     }
 
 }
