@@ -21,7 +21,7 @@ class MyCallableTask implements Callable<Integer> {
     }
 }
 
-class myCallable {
+public class myCallable {
     public static void main(String[] args) throws Exception {
         int n = 10;
 
