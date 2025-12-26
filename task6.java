@@ -1,23 +1,36 @@
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.Semaphore;
 
 class Producer implements Runnable {
     private Queue<Cloths> q;
     private int maxLimit;
     private String name;
+    private Semaphore prodSema;
+    private Semaphore consSema;
 
-    public Producer(Queue<Cloths> que, int mL, String n) {
+    public Producer(Queue<Cloths> que, int mL, String n, Semaphore ps, Semaphore cs) {
         this.q = que;
         this.maxLimit = mL;
         this.name = n;
+        this.prodSema = ps;
+        this.consSema = cs;
     }
 
     public void run() {
-        int i = 100000000;
+        int i = 10000;
         while (i-- > 0) {
-            if (q.size() < maxLimit) {
-                System.out.println(q.size() + " Add to queue " + " Producer name " + name);
-                q.add(new Cloths());
+            // if (q.size() < maxLimit)
+            {
+                try {
+                    prodSema.acquire();
+                    System.out.println(q.size() + " Add to queue " + " Producer name " + name);
+                    q.add(new Cloths());
+                    consSema.release();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
             }
         }
     }
@@ -27,18 +40,29 @@ class Producer implements Runnable {
 class Consumer implements Runnable {
     private Queue<Cloths> q;
     private String name;
+    private Semaphore prodSema;
+    private Semaphore consSema;
 
-    public Consumer(Queue<Cloths> que, String n) {
+    public Consumer(Queue<Cloths> que, String n, Semaphore ps, Semaphore cs) {
         this.q = que;
         this.name = n;
+        this.prodSema = ps;
+        this.consSema = cs;
     }
 
     public void run() {
-        int i = 100000000;
+        int i = 10000;
         while (i-- > 0) {
-            if (q.size() > 0) {
-                System.out.println(q.size() + " Remove from queue " + " Consumer name " + name);
-                q.remove();
+            // if (q.size() > 0)
+            {
+                try {
+                    consSema.acquire();
+                    System.out.println(q.size() + " Remove from queue " + " Consumer name " + name);
+                    q.remove();
+                    prodSema.release();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
         }
@@ -56,18 +80,21 @@ public class task6 {
         int maxLimit = 5;
         Queue<Cloths> q = new ConcurrentLinkedDeque<>();
 
-        Producer p1 = new Producer(q, maxLimit, "Prod1");
-        Producer p2 = new Producer(q, maxLimit, "Prod2");
-        Producer p3 = new Producer(q, maxLimit, "Prod3");
+        Semaphore prodSema = new Semaphore(maxLimit);
+        Semaphore consSema = new Semaphore(0);
 
-        Consumer c1 = new Consumer(q, "Cons1");
-        Consumer c2 = new Consumer(q, "Cons2");
-        Consumer c3 = new Consumer(q, "Cons3");
-        Consumer c4 = new Consumer(q, "Cons4");
-        Consumer c5 = new Consumer(q, "Cons5");
-        Consumer c6 = new Consumer(q, "Cons6");
-        Consumer c7 = new Consumer(q, "Cons7");
-        Consumer c8 = new Consumer(q, "Cons8");
+        Producer p1 = new Producer(q, maxLimit, "Prod1", prodSema, consSema);
+        Producer p2 = new Producer(q, maxLimit, "Prod2", prodSema, consSema);
+        Producer p3 = new Producer(q, maxLimit, "Prod3", prodSema, consSema);
+
+        Consumer c1 = new Consumer(q, "Cons1", prodSema, consSema);
+        Consumer c2 = new Consumer(q, "Cons2", prodSema, consSema);
+        Consumer c3 = new Consumer(q, "Cons3", prodSema, consSema);
+        Consumer c4 = new Consumer(q, "Cons4", prodSema, consSema);
+        Consumer c5 = new Consumer(q, "Cons5", prodSema, consSema);
+        Consumer c6 = new Consumer(q, "Cons6", prodSema, consSema);
+        // Consumer c7 = new Consumer(q, "Cons7", prodSema, consSema);
+        // Consumer c8 = new Consumer(q, "Cons8", prodSema, consSema);
 
         Thread tp1 = new Thread(p1);
         tp1.start();
@@ -89,10 +116,10 @@ public class task6 {
         tc5.start();
         Thread tc6 = new Thread(c6);
         tc6.start();
-        Thread tc7 = new Thread(c7);
-        tc7.start();
-        Thread tc8 = new Thread(c8);
-        tc8.start();
+        // Thread tc7 = new Thread(c7);
+        // tc7.start();
+        // Thread tc8 = new Thread(c8);
+        // tc8.start();
     }
 
 }
